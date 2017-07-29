@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+  <head>
+    <style>
+
+      html, body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        margin: 0;
+      }
+
+      body {
+        background: linear-gradient(white, SlateGray);
+        font-size: 24px;
+      }
+
+      input {
+        font-size: 24px;
+      }
+
+      .container {
+        width: 100%;
+        height: 100%;
+      }
+
+      .inputBox {
+        width: 100%;
+        height: 5%;
+        position: relative;
+        text-align: center;
+      }
+
+      .topBox {
+        width: 100%;
+        height: 35%;
+        text-align: right;
+        padding: 15px;
+        box-sizing: border-box;
+      }
+
+      .messageBox {
+        width: 50%;
+        height: 60%;
+        overflow: auto;
+        visibility: hidden;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+
+      <div class="topBox">
+        <img onclick="javascript:lightdm.shutdown();" src="power_button.png"/>
+      </div>
+
+      <div class="inputBox">
+        <table id="input_table" width="100%">
+          <tr>
+            <td id="prompt" width="45%" align="right"></td>
+            <td width="55%" align="left">
+              <form action="javascript: handle_input()"><input id="entry"></form>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="messageBox" id="messages"></div>
+
+    </div>
+
+    <script type="text/javascript">
+
+      /*********************************************************************/
+      /*                Callbacks for lightdm-webkit-greeter               */
+      /*********************************************************************/
+
+      /*
+       * show_prompt callback.
+       */
+
+      function show_prompt(text, type) {
+        prompt = document.getElementById('prompt');
+        prompt.innerHTML = greeterutil.txt2html(text);
+        entry = document.getElementById('entry');
+        entry.type = type;   // type is either 'text' or 'password'
+        entry.value = '';    // clear entry
+        entry.focus();
+      }
+
+      /*
+       * show_message callback.
+       */
+
+      function show_message(text, type) {
+        text = greeterutil.txt2html(text);
+        if (type == 'error') {
+          text = '<font color="red">' + text + '</font>';
+        }
+        write_message('<p>' + text + '</p>');
+      }
+
+      /*
+       * authentication_complete callback.
+       */
+
+      function authentication_complete() {
+        if (lightdm.is_authenticated) {
+          lightdm.start_session_sync(); // Start default session
+        } else {
+          write_message('<center><font color="red">Authentication Failed</font></center>');
+          setTimeout(start_authentication, 3000);
+        }
+      }
+
+      /*********************************************************************/
+      /*                Functions local to this greeter                    */
+      /*********************************************************************/
+
+      /*
+       * write_message
+       */
+
+      function write_message(text) {
+        messages = document.getElementById('messages');
+        messages.innerHTML += text;
+        messages.style.visibility = 'visible';
+      }
+
+      /*
+       * clear_messages
+       */
+
+      function clear_messages() {
+        messages = document.getElementById('messages');
+        messages.style.visibility = 'hidden';
+        messages.innerHTML = '';
+      }
+
+      /*
+       * Kickoff the authentication process
+       */
+
+      function start_authentication() {
+        clear_messages();
+        lightdm.authenticate(); // start with null userid, have pam prompt for userid.
+      }
+
+      /*
+       * handle the input from the entry field.
+       */
+
+      function handle_input() {
+        entry = document.getElementById('entry');
+        lightdm.respond(entry.value);
+      }
+
+
+      /*********************************************************************/
+      /*                Kick off authentication process                    */
+      /*********************************************************************/
+
+      start_authentication();
+
+    </script>
+  </body>
+</html>

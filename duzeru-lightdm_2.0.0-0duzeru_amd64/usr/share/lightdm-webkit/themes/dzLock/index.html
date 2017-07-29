@@ -1,0 +1,268 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <script src="js/jquery-2.2.4.min.js"></script>
+        <script src="js/jquery.particleground.min.js" type="text/javascript"></script>
+        <script src="js/lightdm.js" type="text/javascript"></script>
+        <script src="js/alert/sweetalert-dev.js"></script>
+        <link href="js/alert/sweetalert.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/materialize.css" rel="stylesheet">
+        <script src="js/materialize.js"></script>
+
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+
+    </head>
+
+    <body class="backgroundDefalt">
+
+        <div id="pnMenuRight">
+            <div class="row">
+                <div class="switch">
+                    <label>
+                        <div class="col s8" idiom="date" >Date</div>
+                        <div class="col s4">
+                            <input type="checkbox" id="cbDate">
+                            <span class="lever"></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="switch">
+                    <label>
+                        <div class="col s8" idiom="clockAnalog" >Clock Analog</div>
+                        <div class="col s4">
+                            <input type="checkbox" id="cbClockAna">
+                            <span class="lever"></span>
+                        </div>
+                    </label>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="switch">
+                    <label>
+                        <div class="col s8" idiom="clockDigital" >Clock Digital</div>
+                        <div class="col s4">
+                            <input type="checkbox" id="cbClockDig">
+                            <span class="lever"></span>
+                        </div>
+                    </label>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="switch">
+                    <label>
+                        <div class="col s8" idiom="smallParticles" >Small Particles</div>
+                        <div class="col s4">
+                            <input type="checkbox" id="cbSmallPar">
+                            <span class="lever"></span>
+                        </div>
+                    </label>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="switch">
+                    <label>
+                        <div class="col s8" idiom="mediumParticles" >Medium Particles</div>
+                        <div class="col s4">
+                            <input type="checkbox" id="cbMediumPar">
+                            <span class="lever"></span>
+                        </div>
+                    </label>
+                </div>
+
+            </div>
+
+            <form action="#" style="padding-right: 10px">
+                <label idiom="optyClock" >Opacity Clock</label>
+                <p class="range-field">
+                    <input type="range" id="rgClock" value="4" min="0" max="99" oninput="opacityClock(this.value)" />
+                </p>
+
+            </form>
+
+            <div class="bg row">
+                <div class="col s12 prevBb backgroundDefalt" bg="backgroundDefalt"></div>
+                <div class="col s12 prevBb leaderBg" bg="leaderBg"></div>
+                <div class="col s12 prevBb gradient-1" bg="gradient-1"></div>
+                <div class="col s12 prevBb gradient-10" bg="gradient-10"></div>
+                <div class="col s12 prevBb gradient-2" bg="gradient-2"></div>
+                <div class="col s12 prevBb gradient-3" bg="gradient-3"></div>
+                <div class="col s12 prevBb gradient-4" bg="gradient-4"></div>
+                <div class="col s12 prevBb gradient-5" bg="gradient-5"></div>
+                <div class="col s12 prevBb gradient-6" bg="gradient-6"></div>
+                <div class="col s12 prevBb gradient-7" bg="gradient-7"></div>
+                <div class="col s12 prevBb gradient-8" bg="gradient-8"></div>
+                <div class="col s12 prevBb gradient-9" bg="gradient-9"></div>
+
+            </div>
+
+        </div>
+
+
+
+
+        <nav>
+            <div class="navbar-fixed">
+                <ul id="nav-mobile" class="right">
+                    <li><a href="#!" id="btnDropMenu" class="dropdown-button" data-activates='dropMenu'>
+                            <span class="name_session"></span>
+                            &nbsp;<i class="fa fa-desktop"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#!" onclick="menuRight()" >
+                            &nbsp;<i class="fa fa-bars"></i>
+                        </a>
+                    </li>
+
+                </ul>
+
+                <ul id="nav-mobile" class="left">
+                    <li><a href="#" onclick="suspend()"><i class="fa fa-sign-out"></i> <span idiom="suspend">Suspend</span></a></li>
+                    <li><a href="#" onclick="hibernate()"><i class="fa fa-circle-o-notch"></i> <span idiom="hibernate" >Hibernate</span></a></li>
+                    <li><a href="#" onclick="restart()"><i class="fa fa-refresh"></i> <span idiom="restart">Restart</span></a></li>
+                    <li><a href="#" onclick="shutdown()"><i class="fa fa-power-off"></i> <span idiom="shutdown">Shutdown</span></a></li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <!--menu session-->
+        <ul id='dropMenu' class='dropdown-content' style="width: 180px !important;"></ul>
+
+
+        <div class="z-depth-1" id="login">
+
+            <div class="row">
+                <div class="col s5">
+                    <div class="artist__thumbnail">
+                        <div class="artist__blur_"></div>
+                        <img class="artist__image" src="img/load.gif">
+                        <div class="artist__ring"></div>
+                        <div class="artist__ring artist__ring--outer"></div>
+                    </div>
+                </div>
+                <div class="col s7" style="padding-left: 15px; padding-right: 10px; padding-top: 10px;">
+
+                    <div class="input-field">
+                        <select style="padding-left: 10px;" id="pnUser" class="icons"></select>
+                        <!--<label idiom="user" >Usuário</label>-->
+                    </div>
+                    <span idiom="password" style="color: #FFFFFF; font-size: 11px;">Password</span>
+                    <div class="input-field col s12" style="margin-top: -1px">                        
+                        <input autofocus id="password" type="password">
+                        <!--<label for="password" idiom="password" >Password</label>-->
+                    </div>
+
+                    <a style="margin-top: 15px;" onclick="keyboardToggle()" class="left btn-flat btn-floating waves-effect waves-light blue-grey"><i class="fa fa-keyboard-o"></i></a>
+
+                    <div class="right" style="margin-top: 17px;">
+                        <button id="btnLogin" idiom="login" class="waves-effect waves-light btn blue-grey"><i class="fa fa-sign-in"></i> Login</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div> 
+
+        <div id="container" style="display: none">
+            <ul id="keyboard">
+                <li class="symbol"><span class="off">`</span><span class="on">~</span></li>
+                <li class="symbol"><span class="off">1</span><span class="on">!</span></li>
+                <li class="symbol"><span class="off">2</span><span class="on">@</span></li>
+                <li class="symbol"><span class="off">3</span><span class="on">#</span></li>
+                <li class="symbol"><span class="off">4</span><span class="on">$</span></li>
+                <li class="symbol"><span class="off">5</span><span class="on">%</span></li>
+                <li class="symbol"><span class="off">6</span><span class="on">^</span></li>
+                <li class="symbol"><span class="off">7</span><span class="on">&amp;</span></li>
+                <li class="symbol"><span class="off">8</span><span class="on">*</span></li>
+                <li class="symbol"><span class="off">9</span><span class="on">(</span></li>
+                <li class="symbol"><span class="off">0</span><span class="on">)</span></li>
+                <li class="symbol"><span class="off">-</span><span class="on">_</span></li>
+                <li class="symbol"><span class="off">=</span><span class="on">+</span></li>
+                <li class="delete lastitem">delete</li>
+                <li class="tab">tab</li>
+                <li class="letter">q</li>
+                <li class="letter">w</li>
+                <li class="letter">e</li>
+                <li class="letter">r</li>
+                <li class="letter">t</li>
+                <li class="letter">y</li>
+                <li class="letter">u</li>
+                <li class="letter">i</li>
+                <li class="letter">o</li>
+                <li class="letter">p</li>
+                <li class="symbol"><span class="off">[</span><span class="on">{</span></li>
+                <li class="symbol"><span class="off">]</span><span class="on">}</span></li>
+                <li class="symbol lastitem"><span class="off">\</span><span class="on">|</span></li>
+                <li class="capslock">caps lock</li>
+                <li class="letter">a</li>
+                <li class="letter">s</li>
+                <li class="letter">d</li>
+                <li class="letter">f</li>
+                <li class="letter">g</li>
+                <li class="letter">h</li>
+                <li class="letter">j</li>
+                <li class="letter">k</li>
+                <li class="letter">l</li>
+                <li class="symbol"><span class="off">;</span><span class="on">:</span></li>
+                <li class="symbol"><span class="off">'</span><span class="on">&quot;</span></li>
+                <li class="return lastitem">return</li>
+                <li class="left-shift">shift</li>
+                <li class="letter">z</li>
+                <li class="letter">x</li>
+                <li class="letter">c</li>
+                <li class="letter">v</li>
+                <li class="letter">b</li>
+                <li class="letter">n</li>
+                <li class="letter">m</li>
+                <li class="symbol"><span class="off">,</span><span class="on">&lt;</span></li>
+                <li class="symbol"><span class="off">.</span><span class="on">&gt;</span></li>
+                <li class="symbol"><span class="off">/</span><span class="on">?</span></li>
+                <li class="right-shift lastitem">shift</li>
+                <li class="space lastitem">&nbsp;</li>
+            </ul>
+        </div>
+
+
+        <div id="pnClock">
+            <div class="clock_date">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div id="clock">
+                <div class="point"></div>
+                <div class="point"></div>
+                <div class="point"></div>
+                <div class="point"></div>
+                <div class="hours"></div>
+                <div class="minutes"></div>
+                <div class="seconds"></div>
+                <div class="center"></div>
+            </div>
+            <div class="digital"></div>
+        </div>
+
+
+
+        <div id="particles-background" class="vertical-centered-box"></div>
+        <div id="particles-foreground" class="vertical-centered-box"></div>
+
+        <script src="js/dzLock.js" type="text/javascript"></script>
+        <script src="js/languages.js" type="text/javascript"></script>
+    </body>
+
+</html>
