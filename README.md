@@ -1,0 +1,2 @@
+# duzeru-lightdm
+Lightdm
