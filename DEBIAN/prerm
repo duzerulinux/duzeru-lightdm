@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" = "remove" ]; then
+  update-alternatives --remove lightdm-webkit-theme /usr/share/lightdm-webkit/themes/webkit
+fi
+
+#SEGUNTO PRERM
+set -e
+
+if [ "$1" = "remove" ]; then
+  update-alternatives --remove lightdm-webkit-theme /usr/share/lightdm-webkit/themes/dzlock
+fi
